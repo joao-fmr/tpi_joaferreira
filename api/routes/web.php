@@ -17,4 +17,8 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+// route to retrieve data from the t_station table
+$router->get('/stations', 'RequestsController@getStations');
+
+// route to store new data in the t_values table
 $router->post('/store', 'RequestsController@store');
