@@ -1,3 +1,4 @@
+# Import necessary libraries
 """
     ETML
     Author: João Ferreira
@@ -5,27 +6,42 @@
     Description : Script that retrieves weather data from MétéoSuisse and sends it to the API
 """
 
-# Import necessary libraries
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
+from pprint import pprint
 import time
 import requests
 import pytz
 import re
 
-# Set the api store method URL
-apiUrl = 'http://lemanride.section-inf.ch/api/public/store'
+# Create a ChromeOptions object to specify additional options for the Chrome web driver
+options = webdriver.ChromeOptions()
+# -argument to disable the sandbox security feature
+options.add_argument('--no-sandbox')
+# -argument to run Chrome in headless mode (without a GUI)
+options.add_argument('--headless')
+# -argument to prevent crashes when running in a Docker container
+options.add_argument('--disable-dev-shm-usage')
+
+# Initialize the Chrome web driver with the specified options
+driver = webdriver.Chrome(options=options)
+  
+
+# Set the current timezone
+timezone = pytz.timezone('Europe/Paris')
+
+# Get the current date and time in the specified timezone 
+now = datetime.now(timezone)
+# Format the date and time as a string
+now = now.strftime("%Y-%m-%d %H:%M:%S")
 
 # Define the xpaths for the elements to extract data from
 divClass = '//div[@class="measurement-map__detail-body"]'
 valueClass = './/div[@class="measurement-map__detail--value"]'
 dateClass = './/div[@class="measurement-map__detail--summary"]'
-
-# Define a dictionary of the station ids with their corresponding names
-stations = {'PRE': 'St-Prex', 'CGI': 'Nyon / Changins', 'GVE': 'Genève / Cointrin'}
 
 """
     Wait for an element to be present on the page
@@ -50,26 +66,13 @@ def extractValue(driver):
     value = float(value.split()[0]) 
     return value
 
-# Create a ChromeOptions object to specify additional options for the Chrome web driver
-options = webdriver.ChromeOptions()
-# -argument to disable the sandbox security feature
-options.add_argument('--no-sandbox')
-# -argument to run Chrome in headless mode (without a GUI)
-options.add_argument('--headless')
-# -argument to prevent crashes when running in a Docker container
-options.add_argument('--disable-dev-shm-usage')
 
-# Initialize the Chrome web driver with the specified options
-driver = webdriver.Chrome(options=options)
-  
 
-# Set the current timezone
-timezone = pytz.timezone('Europe/Paris')
+# Set the api store method URL
+apiUrl = 'http://lemanride.section-inf.ch/api/public/store'
 
-# Get the current date and time in the specified timezone 
-now = datetime.now(timezone)
-# Format the date and time as a string
-now = now.strftime("%Y-%m-%d %H:%M:%S")
+# Define a dictionary of the station ids with their corresponding names
+stations = {'PRE': 'St-Prex', 'CGI': 'Nyon / Changins', 'GVE': 'Genève / Cointrin'}
 
 data = {}
 
