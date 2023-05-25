@@ -1,14 +1,20 @@
 # API URL to store data in database
 API_STORE_URL=http://lemanride.section-inf.ch/api/public/store
 
+# API URL to retrieve data from stations
+API_STATIONS_URL=http://lemanride.section-inf.ch/api/public/stations
+
 # div class that contains data from MeteoSuisse
 DIV_CLASS=//div[@class="measurement-map__detail-body"]
 
-# div element that contains the wind speed value from MeteoSuisse
+# div element that contains the wind speed/gust value from MeteoSuisse
 VALUE_CLASS=.//div[@class="measurement-map__detail--value"]
 
 # div element that contains the entry date from MeteoSuisse
 DATE_CLASS=.//div[@class="measurement-map__detail--summary"]
+
+# label element that contains the button to the gust value
+GUST_BUTTON_LABEL_CLASS=label[for="pill_subParams1"]
 
 # meteosuisse URL that contains needed values
 METEOSUISSE_URL=https://www.meteosuisse.admin.ch/static/measured-values-app/index.html#lang=fr&param=messwerte-windgeschwindigkeit-kmh-10min&station={key}&chart=hour
