@@ -20,7 +20,7 @@ class RequestsController extends Controller
             'valWindDirection' => $request->input('valWindDirection'),
             'valGust' => $request->input('valGust'),
             'valEntryDate' => $request->input('valEntryDate'),
-            'valRegisteredDate' => $request->input('valRegisteredDate'),
+            'valStoredDate' => $request->input('valStoredDate'),
             'fkStation' => $request->input('fkStation')
         ];
 

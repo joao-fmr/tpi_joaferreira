@@ -24,7 +24,7 @@ return new class extends Migration
             $table->float('valWindDirection');
             $table->float('valGust');
             $table->dateTime('valEntryDate');
-            $table->dateTime('valRegisteredDate');
+            $table->dateTime('valStoredDate');
             $table->string('fkStation', 3); // foreign key
             
             $table->foreign('fkStation')->references('idStation')->on('t_station'); // reference to foreign key

@@ -20,6 +20,6 @@ class Values extends Model
 
     // attributes that can be mass assignable
     protected $fillable = [
-        'valWindSpeed', 'valWindDirection', 'valGust', 'valEntryDate', 'valRegisteredDate', 'fkStation'
+        'valWindSpeed', 'valWindDirection', 'valGust', 'valEntryDate', 'valStoredDate', 'fkStation'
     ];
 }
