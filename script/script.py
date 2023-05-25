@@ -1,4 +1,3 @@
-# Import necessary libraries
 """
     ETML
     Author: João Ferreira
@@ -6,6 +5,7 @@
     Description : Script that retrieves weather data from MétéoSuisse and sends it to the API
 """
 
+# Import necessary libraries
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -16,6 +16,7 @@ import time
 import requests
 import pytz
 import re
+import os
 
 # Create a ChromeOptions object to specify additional options for the Chrome web driver
 options = webdriver.ChromeOptions()
@@ -38,10 +39,20 @@ now = datetime.now(timezone)
 # Format the date and time as a string
 now = now.strftime("%Y-%m-%d %H:%M:%S")
 
+# Define a dictionary of the station ids with their corresponding names
+stations = {'PRE': 'St-Prex', 'CGI': 'Nyon / Changins', 'GVE': 'Genève / Cointrin'}
+
+"""
+    ENVIRONMENT VARIABLES FROM "urls.txt"
+"""
+apiStoreUrl = os.environ['API_STORE_URL'] # Set the api store method URL
+meteosuisseUrl = os.environ['METEOSUISSE_URL']
+jsonUrl = os.environ['JSON_URL']
 # Define the xpaths for the elements to extract data from
-divClass = '//div[@class="measurement-map__detail-body"]'
-valueClass = './/div[@class="measurement-map__detail--value"]'
-dateClass = './/div[@class="measurement-map__detail--summary"]'
+divClass = os.environ['DIV_CLASS']
+valueClass = os.environ['VALUE_CLASS']
+dateClass = os.environ['DATE_CLASS']
+
 
 """
     Wait for an element to be present on the page
@@ -67,24 +78,17 @@ def extractValue(driver):
     return value
 
 
-
-# Set the api store method URL
-apiUrl = 'http://lemanride.section-inf.ch/api/public/store'
-
-# Define a dictionary of the station ids with their corresponding names
-stations = {'PRE': 'St-Prex', 'CGI': 'Nyon / Changins', 'GVE': 'Genève / Cointrin'}
-
 data = {}
 
 # Go through the stations dictionary
 for key in stations:
     stationData = {}
 
-    # Set the URL for the current station's data page on MeteoSuisse website according to the station ID (key)
-    response = f'https://www.meteosuisse.admin.ch/static/measured-values-app/index.html#lang=fr&param=messwerte-windgeschwindigkeit-kmh-10min&station={key}&chart=hour'
+       # Set the URL for the current station's data page on MeteoSuisse website according to the station ID (key)
+    response = meteosuisseUrl.format(key=key) # format URL using the current station key
 
     # Make a HTTP GET request to get the data in JSON format for the current station 
-    directionResponse = requests.get(f'https://www.meteosuisse.admin.ch/product/output/measured-values/chartData/wind_hour/chartData.wind_hour.{key}.fr.json')
+    directionResponse = requests.get(jsonUrl.format(key=key)) # format URL using the current station key
     json = directionResponse.json()
 
     # Load the MeteoSuisse page for the current station in the web driver 
@@ -134,7 +138,7 @@ for key in stations:
 # Go through the data dictionary and send each sub-dictionary separately to the API
 for key in data:
     # Make an HTTP POST request to insert the data into the database
-    response = requests.post(apiUrl, json=data[key])
+    response = requests.post(apiStoreUrl, json=data[key])
 
     # Check the status code of the response
     if response.status_code == 201:
