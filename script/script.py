@@ -150,8 +150,12 @@ for idStation in data:
 
     # Check the status code of the response
     if response.status_code == 201:
-        # If the code is 201, the data was inserted successfully
-        print('Data successfully stored...')
+        # If the code is 201, the data was inserted successfully and prints the values for the station
+            print(f"""Current values for the station {idStation} : 
+                    Wind Speed : {data[idStation]['valWindSpeed']}km/h 
+                    Gust : {data[idStation]['valGust']}km/h 
+                    Wind Direction : {data[idStation]['valWindDirection']}°
+                                                            """)
     else:
         # If the code is not 201, there was an error inserting the data and the response text wil be printed
         print('! Error inserting data !')
