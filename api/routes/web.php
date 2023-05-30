@@ -1,4 +1,10 @@
 <?php
+/**
+ * ETML
+ * Author : João Ferreira
+ * Date : 24.05.2023
+ * Description : Routes for the API requests
+ */
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
@@ -26,7 +32,7 @@ $router->get('/values', 'RequestsController@getValues');
 // route to retrieve the most recent values from each station, and also option for do their average (?average=true)
 $router->get('/values/latest', 'RequestsController@getLatestValuesEachStation');
 
-// route to retrieve all values from a station
+// route to retrieve all values from a station from last hours, (?hours=),
 $router->get('/values/{idStation}', 'RequestsController@getAllValuesByStation');
 
 
