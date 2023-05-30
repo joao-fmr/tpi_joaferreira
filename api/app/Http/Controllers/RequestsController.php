@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTimeZone;
 use Carbon\Carbon;
 use App\Models\Values;
 use App\Models\Station;
@@ -91,7 +92,7 @@ class RequestsController extends Controller
         $data = Cache::remember($cacheTag, 300, function () use ($hours, $average) {
             // retrieve all values from the last specified number of hours
             $data = Values::join('t_station', 't_values.fkStation', '=', 't_station.idStation')
-                ->where('valStoredDate', '>=', Carbon::now()->subHours($hours))
+                ->where('valStoredDate', '>=',Carbon::now('Europe/Paris')->subHours($hours))
                 ->orderBy('valStoredDate', 'desc')
                 ->get(['idStation', 'staName', 'valWindSpeed', 'valWindDirection', 'valGust', 'valEntryDate', 'valStoredDate']);
     
@@ -136,7 +137,7 @@ class RequestsController extends Controller
         $data = Cache::remember($cacheTag, 300, function () use ($hours, $idStation) {
             $data = Values::join('t_station', 't_values.fkStation', '=', 't_station.idStation')
                 ->where('fkStation', $idStation)
-                ->where('valStoredDate', '>=', Carbon::now()->subHours($hours))
+                ->where('valStoredDate', '>=', Carbon::now('Europe/Paris')->subHours($hours))
                 ->orderBy('valStoredDate', 'desc')
                 ->get(['idStation', 'staName', 'valWindSpeed', 'valWindDirection', 'valGust', 'valEntryDate', 'valStoredDate']);
             

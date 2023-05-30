@@ -1,14 +1,14 @@
 <header class="bg-gray-300 bg-opacity-80">
     <nav class="navbar">
         <div class="navbar-left">
-            <img src="{{ asset('img/lemanride-logo.png') }}" alt="" class="h-20 object-contain">
+            <a href="{{route('home')}}"><img src="{{ asset('img/lemanride-logo.png') }}" alt="" class="h-20 object-contain"></a>
         </div>
         <div class="navbar-center content-center w-100">
             <ul class="hidden lg:flex justify-center">
-                <li class="ml-20"><a class="{{ Request::routeIs('home') ? 'font-bold underline' : '' }} btn btn-ghost normal-case text-xl text-[#134563]">Accueil</a></li>
-                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl text-[#134563]">Stations</a></li>
-                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl text-[#134563]">À propos</a></li>
-                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl text-[#134563]">Contact</a></li>
+                <li class="ml-20"><a href="{{route('home')}}" class="{{ Request::routeIs('home') ? 'font-bold' : '' }} btn btn-ghost normal-case text-xl text-[#134563]">Accueil</a></li>
+                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl text-[#134563] font-normal">Stations</a></li>
+                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl text-[#134563] font-normal">À propos</a></li>
+                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl text-[#134563] font-normal">Contact</a></li>
             </ul>   
         </div>
 
