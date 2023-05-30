@@ -15,3 +15,4 @@ use App\Http\Controllers\WindController;
 */
 
 Route::get('/', [WindController::class, 'index'])->name('home');
+

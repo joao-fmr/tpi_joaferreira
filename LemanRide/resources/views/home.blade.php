@@ -6,6 +6,5 @@
 <br>
 <br>
 <br>
-<img src="{{ asset('img/leman-lake.jpg') }}" alt="Leman Lake">
 
 @endsection

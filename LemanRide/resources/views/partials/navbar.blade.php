@@ -1,36 +1,30 @@
-
-
-
-<header>
-    <nav class="navbar bg-base-100">
-        <div class="navbar-center">
-            <a class="btn btn-ghost normal-case text-xl">LemanRide</a>
-       
+<header class="bg-gray-300 bg-opacity-80">
+    <nav class="navbar">
+        <div class="navbar-left">
+            <img src="{{ asset('img/lemanride-logo.png') }}" alt="" class="h-20 object-contain">
         </div>
-        <div class="navbar-start flex-1">
-            <div class="dropdown lg:hidden">
+        <div class="navbar-center content-center w-100">
+            <ul class="hidden lg:flex justify-center">
+                <li class="ml-20"><a class="{{ Request::routeIs('home') ? 'font-bold underline' : '' }} btn btn-ghost normal-case text-xl text-[#134563]">Accueil</a></li>
+                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl text-[#134563]">Stations</a></li>
+                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl text-[#134563]">À propos</a></li>
+                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl text-[#134563]">Contact</a></li>
+            </ul>   
+        </div>
+
+        <div class="navbar-right flex-1 justify-end lg:hidden">
+            <div class="dropdown ">
                 <label tabindex="0" class="btn btn-ghost btn-circle">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
                 </label>
-                <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><a class="btn btn-ghost normal-case text-xl">Accueil</a></li>
-                    <li><a class="btn btn-ghost normal-case text-xl">Stations</a></li>
-                    <li><a class="btn btn-ghost normal-case text-xl">À propos</a></li>
-                    <li><a class="btn btn-ghost normal-case text-xl">Contact</a></li>
+                <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-gray-300 bg-opacity-80 rounded-box w-40 origin-top-right right-0">
+                    <li><a class="{{ Request::routeIs('home') ? 'font-bold underline' : '' }} btn btn-ghost normal-case text-xl text-[#134563]">Accueil</a></li>
+                    <li><a class="btn btn-ghost normal-case text-xl text-[#134563]">Stations</a></li>
+                    <li><a class="btn btn-ghost normal-case text-xl text-[#134563]">À propos</a></li>
+                    <li><a class="btn btn-ghost normal-case text-xl text-[#134563]">Contact</a></li>
                 </ul>
             </div> 
-
-            <ul class="hidden lg:flex justify-center ml-auto mr-auto">
-                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl">Accueil</a></li>
-                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl">Stations</a></li>
-                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl">À propos</a></li>
-                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl">Contact</a></li>
-            </ul> 
-
-
-            </div>
-
         </div>
-
+      
     </nav>
 </header>

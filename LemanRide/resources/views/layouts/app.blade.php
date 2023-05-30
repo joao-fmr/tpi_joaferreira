@@ -10,7 +10,8 @@
 
 </head>
 
-<body>
+<body class="bg-cover bg-center" style="background-image: url('{{ asset('img/leman-lake-1.jpg') }}');">
+
     @include('partials/navbar')
     @yield('content')
     @include('partials/footer')
