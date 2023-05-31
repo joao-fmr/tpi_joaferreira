@@ -3,12 +3,12 @@
  * ETML
  * Author : João Ferreira
  * Date : 24.05.2023
- * Description : Requests Controller that makes API requests to insert data in the database and get data from the database 
+ * Description : Requests Controller that makes API requests 
+ * to insert data in the database and get data from the database 
  */
 
 namespace App\Http\Controllers;
 
-use DateTimeZone;
 use Carbon\Carbon;
 use App\Models\Values;
 use App\Models\Station;

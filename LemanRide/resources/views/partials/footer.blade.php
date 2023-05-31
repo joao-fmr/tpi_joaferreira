@@ -1,6 +1,6 @@
 <footer class="footer footer-center p-10 bg-[#134563] text-white">
   <div>
-    <img src="{{ asset('img/lemanride-logo-white.png') }}" alt="" class="h-20">
+    <img src="{{ asset('img/lemanride-logo-white.png') }}" alt="Logo du site LemanRide" class="h-20">
     <a href="https://www.etml.ch/"><p class="font-bold">
       ETML Lausanne <br/>
     </p> </a>
