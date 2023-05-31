@@ -22,9 +22,7 @@
         <div class="strength-knots">
         
         </div>
-        <div class="strength-stars">
 
-        </div>
     </div>
 
 

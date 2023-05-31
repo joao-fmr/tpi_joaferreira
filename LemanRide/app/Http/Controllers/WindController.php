@@ -66,29 +66,6 @@ class WindController extends Controller
         return ['wind' => $wind, 'gust' => $gust];
     }
 
-    private function strengthStars($wind, $gust)
-    {   
-        $average = ($wind + $gust) / 2;
-        if ($average < 10) {
-            $stars = 0;
-            $danger= false;
-        } elseif ($wind >= 10 && $wind < 12) {
-            $stars = 1;
-            $danger = false;
-        } elseif ($average >= 12 && $wind < 15) {
-            $stars = 2;
-            $danger = false;
-        } elseif ($average >= 15 && $wind < 25) {
-            $stars = 3;
-            $danger = false;
-        } else {
-            $stars = 3;
-            $danger = true;
-        }
-
-        return ['stars' => $stars, 'danger' => $danger];
-    }
-
     public function index()
     {
         $data = $this->apiService->getLatestValuesData(true);
