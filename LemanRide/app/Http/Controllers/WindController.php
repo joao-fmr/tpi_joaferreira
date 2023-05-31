@@ -21,14 +21,14 @@ class WindController extends Controller
 
     // constant associative array that contains every wind direction and its corresponding name and image name
     private const WIND_DIRECTIONS_IMAGE = [
-        ['image' => 'n.png', 'name' => 'Bise'],
-        ['image' => 'ne.png', 'name' => 'Bise'],
-        ['image' => 'e.png', 'name' => 'Est'],
-        ['image' => 'se.png', 'name' => 'Sud-Est'],
-        ['image' => 's.png', 'name' => 'Sud'],
-        ['image' => 'sw.png', 'name' => 'Sud-Ouest'],
-        ['image' => 'w.png', 'name' => 'Ouest'],
-        ['image' => 'nw.png', 'name' => 'Nord-Ouest']
+        ['image' => 'n.png', 'name' => 'Bise'],         // 0° - 44° : north 
+        ['image' => 'ne.png', 'name' => 'Bise'],        // 45° - 89° : north east
+        ['image' => 'e.png', 'name' => 'Est'],          // 90° - 134° : east
+        ['image' => 'se.png', 'name' => 'Sud-Est'],     // 135° - 179° : south east
+        ['image' => 's.png', 'name' => 'Sud'],          // 180° - 224° : south
+        ['image' => 'sw.png', 'name' => 'Sud-Ouest'],   // 225° - 269° : south weast
+        ['image' => 'w.png', 'name' => 'Ouest'],        // 270° - 314° west
+        ['image' => 'nw.png', 'name' => 'Nord-Ouest']   // 315° - 359° : north west
     ];
 
 
@@ -58,36 +58,55 @@ class WindController extends Controller
         return ['compass' => $compass, 'name' => $name]; 
     }
 
+    /**
+     * Calculates the average wind strength in knots with the wind speed strength and the gust strength values   
+     *
+     * @param array $data : array containing wind data
+     * @return array : associative array containing the wind strength, the gust strength, and the average strength of both
+     */
     private function calculateKnots($data)
     {
-        $wind = round($data['averageWindSpeed'] * self::CONVERT_KNOTS, 2);
-        $gust = round($data['averageGust'] * self::CONVERT_KNOTS, 2);
+        $windStrength = round($data['averageWindSpeed'] * self::CONVERT_KNOTS, 2);
+        $gustStrength = round($data['averageGust'] * self::CONVERT_KNOTS, 2);
 
-        return ['wind' => $wind, 'gust' => $gust];
+
+        $averageStrength = round(($windStrength + $gustStrength) / 2, 2);
+        return ['windStrength' => $windStrength, 'gustStrength' => $gustStrength, 'averageStrength' => $averageStrength];
     }
 
-    private function strengthStars($wind, $gust)
-    {   
-        $average = ($wind + $gust) / 2;
-        if ($average < 10) {
-            $stars = 0;
-            $danger= false;
-        } elseif ($wind >= 10 && $wind < 12) {
-            $stars = 1;
-            $danger = false;
-        } elseif ($average >= 12 && $wind < 15) {
-            $stars = 2;
-            $danger = false;
-        } elseif ($average >= 15 && $wind < 25) {
-            $stars = 3;
-            $danger = false;
-        } else {
-            $stars = 3;
-            $danger = true;
+
+    private function strengthStars($averageStrength)
+    {
+        $stars = "";
+        $starImg = "<img class='w-10 lg:w-20' src='" . asset('img/star.png ') . "' alt='Étoile indiquant le niveau de danger sur le lac Léman'>";
+        $dangerImg = "<div class ='strength-danger mt-2 flex justify-center'> <img class='w-10 lg:w-20' src='" . asset('img/danger.png ') . "' alt='Signe de danger qu'il ne faut pas aller dans le lac Léman'></div>";
+
+        if($averageStrength >= 10 && $averageStrength <= 12)
+        {
+            $stars = "<div class='strength-stars flex justify-center'>" . $starImg ."</div>";
+        }
+        elseif($averageStrength > 12 && $averageStrength <= 15)
+        {   
+            $stars = "<div class='strength-stars flex justify-center'>" . $starImg . $starImg ."</div>";
+        }
+        elseif($averageStrength > 15 && $averageStrength <= 25)
+        {
+            $stars = "<div class='strength-stars flex justify-center'>" . $starImg . $starImg . $starImg ."</div>";
+        }
+        elseif($averageStrength > 25)
+        {
+            $stars = "<div class='strength-stars flex justify-center'>" . $starImg . $starImg . $starImg ."</div>" . $dangerImg;
+        }
+        else
+        {
+            //$stars = "Le lac est sûr !";
+            $stars = "<div class='strength-stars flex justify-center'>" . $starImg . $starImg . $starImg ."</div>" . $dangerImg;
+           
         }
 
-        return ['stars' => $stars, 'danger' => $danger];
+        return $stars;
     }
+
 
     public function index()
     {
@@ -97,12 +116,11 @@ class WindController extends Controller
         $data['compass'] = $direction['compass'];
         $data['name'] = $direction['name'];
 
-        $strength = $this->calculateKnots($data);
-        $data['windStrength'] = $strength['wind'];
-        $data['gustStrength'] = $strength['gust'];
+        $strengths = $this->calculateKnots($data);
+        $data['windStrength'] = $strengths['windStrength'];
+        $data['gustStrength'] = $strengths['gustStrength'];
 
-        $data['stars'] = $this->strengthStars($data['windStrength'], $data['gustStrength']);
-
+        $data['strengthStars'] = $this->strengthStars($strengths['averageStrength']);
         return view('home')->with('data', $data);
     }
 }

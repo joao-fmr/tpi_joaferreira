@@ -1,14 +1,14 @@
 <header class="bg-gray-300 bg-opacity-80">
-    <nav class="navbar">
+    <nav class="navbar text-[#134563]">
         <div class="navbar-left">
             <a href="{{route('home')}}"><img src="{{ asset('img/lemanride-logo.png') }}" alt="Logo du site LemanRide" class="h-20 object-contain"></a>
         </div>
         <div class="navbar-center content-center w-100">
             <ul class="hidden lg:flex justify-center">
                 <li class="ml-20"><a href="{{route('home')}}" class="{{ Request::routeIs('home') ? 'font-bold' : '' }} btn btn-ghost normal-case text-xl text-[#134563]">Accueil</a></li>
-                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl text-[#134563] font-normal">Stations</a></li>
-                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl text-[#134563] font-normal">À propos</a></li>
-                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl text-[#134563] font-normal">Contact</a></li>
+                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl font-normal">Stations</a></li>
+                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl font-normal">À propos</a></li>
+                <li class="ml-20"><a class="btn btn-ghost normal-case text-xl font-normal">Contact</a></li>
             </ul>   
         </div>
 
@@ -19,9 +19,9 @@
                 </label>
                 <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-gray-300 bg-opacity-80 rounded-box w-40 origin-top-right right-0">
                     <li><a class="{{ Request::routeIs('home') ? 'font-bold' : '' }} btn btn-ghost normal-case text-xl text-[#134563]">Accueil</a></li>
-                    <li><a class="btn btn-ghost normal-case text-xl text-[#134563] font-normal">Stations</a></li>
-                    <li><a class="btn btn-ghost normal-case text-xl text-[#134563] font-normal">À propos</a></li>
-                    <li><a class="btn btn-ghost normal-case text-xl text-[#134563] font-normal">Contact</a></li>
+                    <li><a class="btn btn-ghost normal-case text-xl font-normal">Stations</a></li>
+                    <li><a class="btn btn-ghost normal-case text-xl font-normal">À propos</a></li>
+                    <li><a class="btn btn-ghost normal-case text-xl font-normal">Contact</a></li>
                 </ul>
             </div> 
         </div>
