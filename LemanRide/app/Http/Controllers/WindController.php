@@ -10,8 +10,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\WindApiService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Services\WindApiService;
 
 class WindController extends Controller
 {
@@ -198,6 +199,11 @@ class WindController extends Controller
         $strengths = $this->convertToKnots($latestData);
         $latestData['windStrength'] = $strengths['windStrength'];
         $latestData['gustStrength'] = $strengths['gustStrength'];
+
+        // create a carbon object for the latest stored date, 
+        $date = Carbon::parse($latestData['valStoredDate']);
+        // format it to only get the Hours:Minutes and store it in the latest data array
+        $latestData['valStoredDate'] = $date->format('H:i');
 
         // determine the number of stars to display for the latest data
         $latestData['strengthStars'] = $this->strengthStars($strengths['averageStrength']);

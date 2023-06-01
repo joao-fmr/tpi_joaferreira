@@ -10,50 +10,52 @@
 
 <!-- Top gray rectangle -->
 <div class="latest bg-gray-300 bg-opacity-80 p-4 rounded-md flex mx-auto w-5/6 mdlg:w-1/3 text-[#134563] font-bold text-center justify-between mb-10 flex flex-col">
- 
-<div class="text-lg lg:text-3xl"><p>2023-05-01 08:00:00</p></div>   
 
-<div class="flex flex-row justify-between">
-    <!-- Direction infos -->
-    <div class="direction flex flex-col justify-between">
-
-    <div class="direction-text mb-2 lg:mb-10 text-lg lg:text-3xl">
-        <p>Direction</p>
+    <div class="text-lg lg:text-3xl pb-10 pl-10 pr-10">
+        <p>Valeurs moyennes à {{$latestData['valStoredDate']}}h</p>
     </div>
 
-    <div class="direction-compass flex justify-center">
-        <img class="w-32 lg:w-40" src="{{ $latestData['compass'] }}" alt="Image de boussole définisssant la direction du vent actuelle">
-    </div>
+    <div class="flex flex-row justify-between">
+        <!-- Direction infos -->
+        <div class="direction flex flex-col justify-between">
 
-    <div class="direction-type mt:2 lg:mt-10 text-base lg:text-2xl">
-        <p>{{$latestData['name']}}</p>
-    </div>
+            <div class="direction-text mb-2 lg:mb-10 text-lg lg:text-3xl">
+                <p>Direction</p>
+            </div>
 
-    </div>
+            <div class="direction-compass flex justify-center">
+                <img class="w-32 lg:w-40" src="{{ $latestData['compass'] }}" alt="Image de boussole définisssant la direction du vent actuelle">
+            </div>
 
-      <!-- Strength infos -->
-      <div class="strength flex flex-col">    
-        <div class="strength-text mb-2 lg:mb-10 text-lg lg:text-3xl">
-            <p>Force</p>
+            <div class="direction-type mt:2 lg:mt-10 text-base lg:text-2xl">
+                <p>{{$latestData['name']}}</p>
+            </div>
+
         </div>
 
-        <div class="strength-infos flex flex-col">
-            <div class="strength-infos-knots mb-2 text-base lg:text-2xl">
-                <p>{{$latestData['windStrength']}} / {{$latestData['gustStrength']}} noeuds</p>
+        <!-- Strength infos -->
+        <div class="strength flex flex-col">
+            <div class="strength-text mb-2 lg:mb-10 text-lg lg:text-3xl">
+                <p>Force</p>
             </div>
-            
-            <div class="strength-infos-indicator mt-10 text-base lg:text-2xl">
-                <!-- the double exclamation mark !! !! allows the tags <img> to be displayed correctly -->
-                {!! $latestData['strengthStars'] !!}
+
+            <div class="strength-infos flex flex-col">
+                <div class="strength-infos-knots mb-2 text-base lg:text-2xl">
+                    <p>{{$latestData['windStrength']}} / {{$latestData['gustStrength']}} noeuds</p>
+                </div>
+
+                <div class="strength-infos-indicator mt-10 text-base lg:text-2xl">
+                    <!-- the double exclamation mark !! !! allows the tags <img> to be displayed correctly -->
+                    {!! $latestData['strengthStars'] !!}
+                </div>
             </div>
+
         </div>
-     
+
     </div>
 
-</div>
-   
 
-  
+
 
 </div>
 
@@ -68,10 +70,10 @@
 
     <div class="flex justify-center items-center mb-4">
         <form action="{{ route('homeLastHours') }}" method="post">
-            @csrf  
+            @csrf
             <label for="hours" class="mr-4">Heures dans le passé :</label>
             <input type="number" id="hours" name="hours" min="1" max="96" class="rounded-lg border-gray-400 border py-2 px-4" value={{$lastHours}}>
-            
+
             <button id="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg ml-4">Afficher le graphique</button>
         </form>
     </div>
