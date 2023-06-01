@@ -48,18 +48,38 @@
 
 </div>
 
+
 <!-- Graph showing the data evolution -->
-<div class="flex flex-col justify-center text-[#134563] font-bold bg-gray-300 bg-opacity-80 p-4 rounded-md mb-10 ml-5 mr-5">
+<div class="flex flex-col justify-center text-[#134563] font-bold bg-gray-300 bg-opacity-80 p-4 rounded-md mb-10 ml-10 mr-10">
+
     <div class="text-center mb-2 lg:mb-10 text-lg lg:text-3xl">
-        <p>Évolution de la force du vent depuis les 96 dernières heures</p>
+        <p>Évolution de la force du vent depuis les dernières {{ $lastHours }} heures</p>
     </div>
     <div id="graph" style="width:100%;height:500px"></div>
+
+    <div class="flex justify-center items-center mb-4">
+        <form action="{{ route('homeLastHours') }}" method="post">
+            @csrf  
+            <label for="hours" class="mr-4">Heures dans le passé :</label>
+            <input type="number" id="hours" name="hours" min="1" max="96" class="rounded-lg border-gray-400 border py-2 px-4" value={{$lastHours}}>
+            
+            <button id="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg ml-4">Afficher le graphique</button>
+        </form>
+    </div>
+
 </div>
+
+
 
 <script type="text/javascript">
     let allData = <?php echo json_encode($graphData); ?>
 </script>
 
 @vite('resources/js/graph.js')
+
+
+
+
+
 
 @endsection

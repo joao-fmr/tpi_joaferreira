@@ -17,6 +17,8 @@ use App\Http\Controllers\WindController;
 // route to the home page rendered by the renderHome method of the WindController
 Route::get('/', [WindController::class, 'renderHome'])->name('home');
 
+Route::post('/', [WindController::class, 'renderHomeLastHours'])->name('homeLastHours');
+
 // route to the stations page rendered by the renderStations method of the WindController
 Route::get('/stations', [WindController::class, 'renderStations'])->name('stations');
 

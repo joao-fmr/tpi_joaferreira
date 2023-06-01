@@ -12,13 +12,15 @@ var dates = [];
 var windStrengths = [];
 var gustStrengths = [];
 var averageStrengths = [];
-
 for (var key in allData) {
-    dates.push(allData[key].valStoredDate);
+    let date = new Date(allData[key].valStoredDate);
+    let formattedDate = date.toLocaleDateString('fr-FR', {day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric'});
+    dates.push(formattedDate);
     windStrengths.push(allData[key].windStrength);
     gustStrengths.push(allData[key].gustStrength);
     averageStrengths.push(allData[key].averageStrength);
 }
+
 
 window.addEventListener('resize', function() {
     chart.resize();

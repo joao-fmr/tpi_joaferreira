@@ -51,6 +51,8 @@ class WindController extends Controller
     // the danger class containing the danger image used to display the danger
     private const STRENGTH_DANGER_CLASS = "<div class ='strength-danger mt-2 flex justify-center'> <img class='danger w-3/10 lg:w-3/10' src='img/danger.png' alt='Signe de danger qu'il ne faut pas aller dans le lac Léman'></div>";
     
+    // the number of default hours in the past
+    private const LAST_HOURS_DEFAULT = 96;
 
     /**
      * Creates a new instance of the class
@@ -171,18 +173,19 @@ class WindController extends Controller
     }
 
     /**
-     * Renders the home page with the latest data and the graph data
+     * Gets the data for the  home page
      * 
-     * @return View : the home view page and the data (latestData and graphData)
+     * @param int|null $lastHours : number of hours in the past to get data for If null, gets data for the last 96 hours
+     * @return array : array containing the latest data and the data for the graph
      */
-    public function renderHome()
+    public function getHomeData($lastHours = null)
     {
         // get the latest values from the API using the services
         $latestData = $this->apiService->getLatestValuesData($average = true);
 
-        // get all the values from 96 hours from the API using the services
-        $allData = $this->apiService->getValuesData($hours = null, $average = true);
-        
+        // get the data from the API using the services
+        $allData = $this->apiService->getValuesData($hours = $lastHours, $average = true);
+
         // separates the wind data from the API and converts it to knots
         $graphData = $this->separateValues($allData);
 
@@ -199,13 +202,51 @@ class WindController extends Controller
         // determine the number of stars to display for the latest data
         $latestData['strengthStars'] = $this->strengthStars($strengths['averageStrength']);
 
-        // render the home view with the latest data and the graph data
-        return view('home', [
-                                'latestData' => $latestData,
-                                'graphData' => $graphData
-                            ]);
-
+        // returns the latest data and the data for the graph
+        return [
+            'latestData' => $latestData,
+            'graphData' => $graphData
+        ];
     }
+
+    /**
+     * Renders the home page with the latest data and the graph data
+     * 
+     * @return View : home view with the latest data and the graph data 
+     */
+    public function renderHome()
+    {
+        // get the data for the home page
+        $data = $this->getHomeData();
+
+        // set the number of hours in the past to the default value
+        $data['lastHours'] = self::LAST_HOURS_DEFAULT;
+
+        // render the home view with the home data
+        return view('home', $data);
+    }
+
+    /**
+     * Renders the home page with the latest data and graph data for a specific number of hours in the past 
+     * 
+     * @param Request $request : object containing the user input of the form
+     * @return View : home view with the latest data and graph data for a specific number of hours in the past
+     */
+    public function renderHomeLastHours(Request $request)
+    {
+        // get the value of the number of last hours from the input of the form
+        $lastHours = $request->input('hours');
+
+        // get the data from the home page
+        $data = $this->getHomeData($lastHours);
+
+        // sets the number of hours in the past to the value inputed from the form
+        $data['lastHours'] = $lastHours;
+
+        // render the home view with the home data
+        return view('home', $data);
+    }
+    
 
     /**
      * Renders the stations page with station data
