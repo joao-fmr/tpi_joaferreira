@@ -221,12 +221,16 @@ class RequestsController extends Controller
                 $averageWindSpeed = round($data->avg('valWindSpeed'), 1);
                 $averageWindDirection = round($data->avg('valWindDirection'));
                 $averageGust = round($data->avg('valGust'), 1);
+                
+                // get the last stored date
+                $valStoredDate = $data->first()->valStoredDate; 
 
-                // return the average values
+                // return the average values and the stored date
                 return [
                     'averageWindSpeed' => $averageWindSpeed,
                     'averageWindDirection' => $averageWindDirection,
-                    'averageGust' => $averageGust
+                    'averageGust' => $averageGust,
+                    'valStoredDate' => $valStoredDate
                 ];
             }
 
