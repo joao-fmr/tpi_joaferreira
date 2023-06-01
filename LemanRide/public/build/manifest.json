@@ -8,5 +8,10 @@
     "file": "assets/app-0d91dc04.js",
     "isEntry": true,
     "src": "resources/js/app.js"
+  },
+  "resources/js/graph.js": {
+    "file": "assets/graph-b654a211.js",
+    "isEntry": true,
+    "src": "resources/js/graph.js"
   }
 }
