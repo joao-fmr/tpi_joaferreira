@@ -105,23 +105,11 @@ class WindController extends Controller
         return $stars;
     }
 
-    // remplacer valWindSpeed et valGust par average dans la méthode getValues de l'API
-    private function calculateKnots2($data)
-    {
-        $windStrength = round($data['valWindSpeed'] * self::CONVERT_KNOTS, 2);
-        $gustStrength = round($data['valGust'] * self::CONVERT_KNOTS, 2);
-
-
-        $averageStrength = round(($windStrength + $gustStrength) / 2, 2);
-        return ['windStrength' => $windStrength, 'gustStrength' => $gustStrength, 'averageStrength' => $averageStrength];
-    }
-
-
     private function separateValues($allData)
     {
         $result = [];
         foreach($allData as $data) {
-            $knots = $this->calculateKnots2($data);
+            $knots = $this->calculateKnots($data);
             $result[] = [
                 'windStrength' => $knots['windStrength'],
                 'gustStrength' => $knots['gustStrength'],
