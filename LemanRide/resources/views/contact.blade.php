@@ -66,5 +66,5 @@
     </form>
 </div>
 
-<!-- Form from : https://tailwindcomponents.com/component/basic-contact-form -->
+<!-- Form from : https://tailwindcomponents.com/component/basic-contact-form-->
 @endsection

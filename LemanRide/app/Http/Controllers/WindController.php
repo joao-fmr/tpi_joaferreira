@@ -25,19 +25,19 @@ class WindController extends Controller
     private const WIND_DIRECTIONS_ARRAY = [
         ['image' => 'n.png', 'name' => 'Bise'],         // index 1 : 0° - 44° : north 
         ['image' => 'ne.png', 'name' => 'Bise'],        // index 2 : 45° - 89° : north east
-        ['image' => 'e.png', 'name' => 'Est'],          // index 3 : 90° - 134° : east
-        ['image' => 'se.png', 'name' => 'Sud-Est'],     // index 4 : 135° - 179° : south east
-        ['image' => 's.png', 'name' => 'Sud'],          // index 5 : 180° - 224° : south
+        ['image' => 'e.png', 'name' => ''],          // index 3 : 90° - 134° : east
+        ['image' => 'se.png', 'name' => ''],     // index 4 : 135° - 179° : south east
+        ['image' => 's.png', 'name' => ''],          // index 5 : 180° - 224° : south
         ['image' => 'sw.png', 'name' => 'Sud-Ouest'],   // index 6 : 225° - 269° : south weast
-        ['image' => 'w.png', 'name' => 'Ouest'],        // index 7 : 270° - 314° west
-        ['image' => 'nw.png', 'name' => 'Nord-Ouest']   // index 8 : 315° - 359° : north west
+        ['image' => 'w.png', 'name' => ''],        // index 7 : 270° - 314° west
+        ['image' => 'nw.png', 'name' => '']   // index 8 : 315° - 359° : north west
     ];
 
     // divisor used to calculate the index of the wind direction array
     private const WIND_DIRECTION_DIVISOR = 45; // 360° / 45 = 8 (index)
 
     // number of decimal places that will be round to
-    private const DECIMAL_PLACES_ROUND = 2;
+    private const DECIMAL_PLACES_ROUND = 1;
 
     // the strength values to determine the number of stars to display
     private const STRENGTH_MIN = 10;

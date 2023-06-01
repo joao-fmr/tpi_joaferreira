@@ -9,26 +9,30 @@
 </div>
 
 <!-- Top gray rectangle -->
-<div class="latest bg-gray-300 bg-opacity-80 p-4 rounded-md flex mx-auto w-5/6 mdlg:w-1/3 text-[#134563] font-bold text-center justify-between mb-10 flex">
+<div class="latest bg-gray-300 bg-opacity-80 p-4 rounded-md flex mx-auto w-5/6 mdlg:w-1/3 text-[#134563] font-bold text-center justify-between mb-10 flex flex-col">
+ 
+<div class="text-lg lg:text-3xl"><p>2023-05-01 08:00:00</p></div>   
+
+<div class="flex flex-row justify-between">
     <!-- Direction infos -->
     <div class="direction flex flex-col justify-between">
 
-        <div class="direction-text mb-2 lg:mb-10 text-lg lg:text-3xl">
-            <p>Direction</p>
-        </div>
+    <div class="direction-text mb-2 lg:mb-10 text-lg lg:text-3xl">
+        <p>Direction</p>
+    </div>
 
-        <div class="direction-compass flex justify-center">
-            <img class="w-32 lg:w-40" src="{{ $latestData['compass'] }}" alt="Image de boussole définisssant la direction du vent actuelle">
-        </div>
+    <div class="direction-compass flex justify-center">
+        <img class="w-32 lg:w-40" src="{{ $latestData['compass'] }}" alt="Image de boussole définisssant la direction du vent actuelle">
+    </div>
 
-        <div class="direction-type mt:2 lg:mt-10 text-base lg:text-2xl">
-            <p>{{$latestData['name']}}</p>
-        </div>
+    <div class="direction-type mt:2 lg:mt-10 text-base lg:text-2xl">
+        <p>{{$latestData['name']}}</p>
+    </div>
 
     </div>
 
-    <!-- Strength infos -->
-    <div class="strength flex flex-col">    
+      <!-- Strength infos -->
+      <div class="strength flex flex-col">    
         <div class="strength-text mb-2 lg:mb-10 text-lg lg:text-3xl">
             <p>Force</p>
         </div>
@@ -45,6 +49,11 @@
         </div>
      
     </div>
+
+</div>
+   
+
+  
 
 </div>
 
@@ -72,7 +81,8 @@
 
 
 <script type="text/javascript">
-    let allData = <?php echo json_encode($graphData); ?>
+    // give graph data to the graph
+    var graphData = <?php echo json_encode($graphData); ?>
 </script>
 
 @vite('resources/js/graph.js')
