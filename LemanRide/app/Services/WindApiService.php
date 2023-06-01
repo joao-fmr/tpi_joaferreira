@@ -32,7 +32,7 @@ class WindApiService
     
     /**
      * Get values data from the API
-     * @param int|null $hours : number of hours to get data for. If null, data for all hours is returned.
+     * @param int|null $hours : number of hours to get data for. If null, data for the last 96 hours is returned.
      * @param string|null $average : type of average to apply to the data. If null, no average is applied.
      * @return array : data returned from the API
     */
@@ -41,13 +41,25 @@ class WindApiService
         // set the base URL for the API request
         $url = "http://lemanride.section-inf.ch/api/public/values";
 
-        // if hours or average value is given, add it to the URL
-        $url .= $hours ? "?hours=$hours" : '';
-        $url .= $average ? "&average=$average" : '';
-        // if both, add both (?) (&)
-        if($hours && $average){
-            $url.= "?hours=$hours&average=$average";
+        // initialize an array to hold the query parameters
+        $queryParams = [];
+
+        // if hours is not null, add it to the query parameters
+        if ($hours) {
+            $queryParams['hours'] = $hours;
         }
+
+        // if average is not null, add it to the query parameters
+        if ($average) {
+            $queryParams['average'] = $average;
+        }
+
+        // build the query string from the query parameters
+        $queryString = http_build_query($queryParams);
+
+        // append the query string to the url
+        $url .= '?' . $queryString;
+
 
         // send a GET request to the API and return the response
         $response = Http::get($url);

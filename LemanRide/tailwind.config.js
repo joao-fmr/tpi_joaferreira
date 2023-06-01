@@ -6,7 +6,11 @@ export default {
     "./resources/**/*.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'mdlg' : '1300px',
+      },
+    },
   },
   plugins: [require("daisyui")],
   

@@ -14,12 +14,16 @@ use App\Http\Controllers\WindController;
 |
 */
 
-Route::get('/', [WindController::class, 'renderIndex'])->name('home');
+// route to the home page rendered by the renderHome method of the WindController
+Route::get('/', [WindController::class, 'renderHome'])->name('home');
 
+// route to the stations page rendered by the renderStations method of the WindController
 Route::get('/stations', [WindController::class, 'renderStations'])->name('stations');
 
+// route to the about page rendered by the renderAbout method of the WindController
 Route::get('/about', [WindController::class, 'renderAbout'])->name('about');
 
+// route to the contact page rendered by the renderContact method of the WindController
 Route::get('/contact', [WindController::class, 'renderContact'])->name('contact');
 
 

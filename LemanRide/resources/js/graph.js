@@ -1,3 +1,11 @@
+/**
+ * ETML
+ * Author : João Ferreira
+ * Date : 01.06.2023
+ * Description :
+ */
+
+
 allData.sort((a, b) => new Date(a.valStoredDate) - new Date(b.valStoredDate));
 
 var dates = [];
@@ -12,16 +20,18 @@ for (var key in allData) {
     averageStrengths.push(allData[key].averageStrength);
 }
 
+window.addEventListener('resize', function() {
+    chart.resize();
+});
 
 var chart = echarts.init(document.getElementById('graph'));
 
 
 var option = {
-    title : {
-        text: 'Évolution de la force du vent depuis les dernières 96 heures'
-    },
     legend : {
-        data: ['Force du vent', 'Force de rafale', 'Force moyenne']
+        data: ['Force du vent', 'Force de rafale', 'Force moyenne'],
+        left: 'center',
+        orient: 'vertical'
     },
     xAxis: {
         type: 'category',
@@ -29,6 +39,9 @@ var option = {
     },
     yAxis: {
         type: 'value'
+    },
+    grid: {
+        top: '20%'
     },
     tooltip: {
         trigger: 'axis',

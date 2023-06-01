@@ -16,7 +16,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class RequestsController extends Controller
-{
+{   
+    // time that the stations cache will expire
+    private const STATIONS_CACHE_TIME = 86400; // 24 hours
+
+    // time that the values cache will expire
+    private const VALUES_CACHE_TIME = 300; // 5 minutes
+
+    // carbon timezone to compare it to database datetime
+    private const DEFAULT_TIMEZONE = 'Europe/Paris';
+
+    // default number of hours to get data from
+    private const DEFAULT_HOURS = 96;
+
+    // default average bool value to determine if we want average values or not
+    private const DEFAULT_AVERAGE_BOOL = false;
+
+    // the http code status code for a successful POST request
+    private const HTTP_CODE_INSERT = 201;
+
+
     /**
      * Stores new data in the t_values table and clears the cache
      * @param Request $request : Request containing the data to insert
@@ -41,7 +60,7 @@ class RequestsController extends Controller
         Cache::flush();
 
         // return success response
-        return response()->json(['message' => 'Data successfully stored...'], 201);
+        return response()->json(['message' => 'Data successfully stored...'], self::HTTP_CODE_INSERT);
     }
 
     /**
@@ -58,7 +77,7 @@ class RequestsController extends Controller
         $cacheTag = $idStation ? 'station_'.$idStation : 'stations';
     
         // retrieve data from cache or store it in cache if it doesn't exist
-        $data = Cache::remember($cacheTag, 86400, function () use ($idStation) {
+        $data = Cache::remember($cacheTag, self::STATIONS_CACHE_TIME, function () use ($idStation) {
             if ($idStation) {
                 // retrieve station with the specified ID
                 return Station::where('idStation', $idStation)->first();
@@ -82,17 +101,21 @@ class RequestsController extends Controller
     public function getValues(Request $request)
     {
         // get number of hours from URL input (?hours=) 96 by default 
-        $hours = $request->input('hours', 96);
+        $hours = $request->input('hours', self::DEFAULT_HOURS);
         // get average bool from URL input (?average=) false by default
-        $average = filter_var($request->input('average', false), FILTER_VALIDATE_BOOLEAN);
+        $average = filter_var($request->input(
+                                    'average', 
+                                    self::DEFAULT_AVERAGE_BOOL), FILTER_VALIDATE_BOOLEAN
+                              );
+
         // create a cache tag based on the input parameters
         $cacheTag = "values_{$hours}_{$average}";
     
         // retrieve data from cache or store it in cache if it doesn't exist
-        $data = Cache::remember($cacheTag, 300, function () use ($hours, $average) {
+        $data = Cache::remember($cacheTag, self::VALUES_CACHE_TIME, function () use ($hours, $average) {
             // retrieve all values from the last specified number of hours
             $data = Values::join('t_station', 't_values.fkStation', '=', 't_station.idStation')
-                ->where('valStoredDate', '>=',Carbon::now('Europe/Paris')->subHours($hours))
+                ->where('valStoredDate', '>=',Carbon::now(self::DEFAULT_TIMEZONE)->subHours($hours))
                 ->orderBy('valStoredDate', 'desc')
                 ->get(['idStation', 
                         'staName', 
@@ -134,16 +157,16 @@ class RequestsController extends Controller
     public function getAllValuesByStation(Request $request, $idStation)
     {
         // get number of hours from URL input (?hours=) 96 by default 
-        $hours = $request->input('hours', 96);
+        $hours = $request->input('hours', self::DEFAULT_HOURS);
 
         // create a cache tag based on the input parameters
         $cacheTag = "values_station_{$idStation}_{$hours}";
 
         // retrieve all values for the specified station from the last specified number of hours
-        $data = Cache::remember($cacheTag, 300, function () use ($hours, $idStation) {
+        $data = Cache::remember($cacheTag, self::VALUES_CACHE_TIME, function () use ($hours, $idStation) {
             $data = Values::join('t_station', 't_values.fkStation', '=', 't_station.idStation')
                 ->where('fkStation', $idStation)
-                ->where('valStoredDate', '>=', Carbon::now('Europe/Paris')->subHours($hours))
+                ->where('valStoredDate', '>=', Carbon::now(self::DEFAULT_TIMEZONE)->subHours($hours))
                 ->orderBy('valStoredDate', 'desc')
                 ->get(['idStation', 
                         'staName', 
@@ -167,13 +190,13 @@ class RequestsController extends Controller
     public function getLatestValuesEachStation(Request $request)
     {
         // get average bool from URL input (?average=) false by default
-        $average = filter_var($request->input('average', false), FILTER_VALIDATE_BOOLEAN);
+        $average = filter_var($request->input('average', self::DEFAULT_AVERAGE_BOOL), FILTER_VALIDATE_BOOLEAN);
 
         // create a cache tag based on the input parameters
         $cacheTag = "latest_values_each_station_{$average}";
 
         // retrieve data from cache or store it in cache if it doesn't exist
-        $data = Cache::remember($cacheTag, 300, function () use ($average) {
+        $data = Cache::remember($cacheTag, self::VALUES_CACHE_TIME, function () use ($average) {
             // create a subquery to get the maximum stored data (most recent one) for each station
             $subQuery = Values::selectRaw('fkStation, MAX(valStoredDate) as max_date')
                 ->groupBy('fkStation');

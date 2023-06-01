@@ -1,15 +1,19 @@
 @extends('layouts.app')
 @section('content')
+<!-- Stations page -->
 
+<!-- Title of the page -->
 <div class="titles text-center text-white font-bold p-10">
     <h1 class="title lg:text-6xl text-4xl mb-5">Stations</h1>
 </div>
+
 
 <div class="flex justify-center">
 
     <div class="stations flex flex-col lg:flex-row items center bg-fixed bg-center">
 
             @foreach ($data as $station)
+            <!-- Station object -->
             <div class="station flex flex-col items-center m-10">
 
                 <div class="station-name text-center text-white text-2xl m-4">
