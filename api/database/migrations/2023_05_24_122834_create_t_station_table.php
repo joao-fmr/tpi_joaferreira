@@ -27,9 +27,9 @@ return new class extends Migration
 
         // Insert the known stations in the Database
         DB::table('t_station')->insert([
-            ['idStation' => 'PRE', 'staName' => 'St-Prex', 'staImg' => ''],
-            ['idStation' => 'CGI', 'staName' => 'Nyon / Changins', 'staImg' => ''],
-            ['idStation' => 'GVE', 'staName' => 'Genève / Cointrin', 'staImg' => '']
+            ['idStation' => 'PRE', 'staName' => 'St-Prex', 'staImg' => 'https://www.meteosuisse.admin.ch/assets/station-images/PRE-image.jpg'],
+            ['idStation' => 'CGI', 'staName' => 'Nyon / Changins', 'staImg' => 'https://www.meteosuisse.admin.ch/assets/station-images/CGI-image.jpg'],
+            ['idStation' => 'GVE', 'staName' => 'Genève / Cointrin', 'staImg' => 'https://www.meteosuisse.admin.ch/assets/station-images/GVE-image.jpg']
         ]);
     }
 

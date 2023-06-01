@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
 
+    <!-- Import Echarts Apache -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@latest"></script>
+
     <title>LemanRide</title>
 
 </head>
-
-<body class="bg-cover bg-center" style="background-image: url('{{ asset('img/background/leman-lake-1.jpg') }}');">
+<body class="bg-fixed bg-center" style="background-image: url(' <?php echo asset('img/background/leman-lake-1.jpg') ?> ')">
 
     @include('partials/navbar')
     @yield('content')

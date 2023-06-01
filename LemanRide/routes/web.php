@@ -14,5 +14,12 @@ use App\Http\Controllers\WindController;
 |
 */
 
-Route::get('/', [WindController::class, 'index'])->name('home');
+Route::get('/', [WindController::class, 'renderIndex'])->name('home');
+
+Route::get('/stations', [WindController::class, 'renderStations'])->name('stations');
+
+Route::get('/about', [WindController::class, 'renderAbout'])->name('about');
+
+Route::get('/contact', [WindController::class, 'renderContact'])->name('contact');
+
 

@@ -74,7 +74,8 @@ class RequestsController extends Controller
 
     
     /**
-     * Get all values from the last specified number of hours (96h by default) and average or not (false by default)
+     * Get all values from the last specified number of hours 
+     * (96h by default) and average or not (false by default)
      * @param Request $request : Request containing the input data from the URL
      * @return JsonResponse : JSON response containing the data
      */
@@ -84,7 +85,6 @@ class RequestsController extends Controller
         $hours = $request->input('hours', 96);
         // get average bool from URL input (?average=) false by default
         $average = filter_var($request->input('average', false), FILTER_VALIDATE_BOOLEAN);
-    
         // create a cache tag based on the input parameters
         $cacheTag = "values_{$hours}_{$average}";
     
@@ -94,7 +94,13 @@ class RequestsController extends Controller
             $data = Values::join('t_station', 't_values.fkStation', '=', 't_station.idStation')
                 ->where('valStoredDate', '>=',Carbon::now('Europe/Paris')->subHours($hours))
                 ->orderBy('valStoredDate', 'desc')
-                ->get(['idStation', 'staName', 'valWindSpeed', 'valWindDirection', 'valGust', 'valEntryDate', 'valStoredDate']);
+                ->get(['idStation', 
+                        'staName', 
+                        'valWindSpeed', 
+                        'valWindDirection', 
+                        'valGust', 
+                        'valEntryDate', 
+                        'valStoredDate']);
     
             // if the average bool is true
             if ($average) {
@@ -102,9 +108,9 @@ class RequestsController extends Controller
                 $data = $data->groupBy('valStoredDate');
                 $data = $data->map(function ($item) {
                     return [
-                        'valWindSpeed' => round($item->avg('valWindSpeed'), 1),
-                        'valWindDirection' => round($item->avg('valWindDirection')),
-                        'valGust' => round($item->avg('valGust'), 1),
+                        'averageWindSpeed' => round($item->avg('valWindSpeed'), 1),
+                        'averageWindDirection' => round($item->avg('valWindDirection')),
+                        'averageGust' => round($item->avg('valGust'), 1),
                         'valEntryDate' => $item->first()['valEntryDate'],
                         'valStoredDate' => $item->first()['valStoredDate']
                     ];
@@ -133,13 +139,19 @@ class RequestsController extends Controller
         // create a cache tag based on the input parameters
         $cacheTag = "values_station_{$idStation}_{$hours}";
 
-        // retrieve all values for the specified station from the last specified number of hours (96h by default)
+        // retrieve all values for the specified station from the last specified number of hours
         $data = Cache::remember($cacheTag, 300, function () use ($hours, $idStation) {
             $data = Values::join('t_station', 't_values.fkStation', '=', 't_station.idStation')
                 ->where('fkStation', $idStation)
                 ->where('valStoredDate', '>=', Carbon::now('Europe/Paris')->subHours($hours))
                 ->orderBy('valStoredDate', 'desc')
-                ->get(['idStation', 'staName', 'valWindSpeed', 'valWindDirection', 'valGust', 'valEntryDate', 'valStoredDate']);
+                ->get(['idStation', 
+                        'staName', 
+                        'valWindSpeed', 
+                        'valWindDirection', 
+                        'valGust', 
+                        'valEntryDate', 
+                        'valStoredDate']);
             
             return $data;
         });
@@ -172,7 +184,13 @@ class RequestsController extends Controller
                     $join->on('t_values.fkStation', '=', 'latest_values.fkStation')
                         ->on('t_values.valStoredDate', '=', 'latest_values.max_date');
                 })
-                ->get(['idStation', 'staName', 'valWindSpeed', 'valWindDirection', 'valGust', 'valEntryDate', 'valStoredDate']);
+                ->get(['idStation', 
+                        'staName', 
+                        'valWindSpeed', 
+                        'valWindDirection', 
+                        'valGust', 
+                        'valEntryDate', 
+                        'valStoredDate']);
 
             // if the average bool is true
             if ($average) {
