@@ -52,7 +52,7 @@ class WindController extends Controller
     private const STRENGTH_DANGER_CLASS = "<div class ='strength-danger mt-2 flex justify-center'> <img class='danger w-3/10 lg:w-3/10' src='img/danger.png' alt='Signe de danger qu'il ne faut pas aller dans le lac Léman'></div>";
     
     // the number of default hours in the past
-    private const LAST_HOURS_DEFAULT = 96;
+    private const LAST_HOURS_DEFAULT = 24;
 
     /**
      * Creates a new instance of the class
