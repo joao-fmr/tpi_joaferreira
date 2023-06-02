@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Http;
 
 class WindApiService
 {
+    // api base URL
+    private const API_BASE_URL = "http://lemanride.section-inf.ch/api/public/";
+
     /**
      * Get data for stations from the API
      * @param int|null $idStation : ID of the station to get data for. If null, data for all stations is returned.
@@ -19,8 +22,8 @@ class WindApiService
     */
     public function getStationsData($idStation = null)
     {
-        // set the base URL for the API request
-        $url = "http://lemanride.section-inf.ch/api/public/stations";
+        // set the URL for the API request based on the based URL
+        $url = self::API_BASE_URL . "stations";
 
         // if ID of a station is given, add it to the url
         $url .= $idStation ? "&idStation=$idStation" : '';
@@ -39,7 +42,7 @@ class WindApiService
     public function getValuesData($hours = null, $average = null)
     {
         // set the base URL for the API request
-        $url = "http://lemanride.section-inf.ch/api/public/values";
+        $url = self::API_BASE_URL . "values";
 
         // initialize an array to hold the query parameters
         $queryParams = [];
@@ -75,7 +78,7 @@ class WindApiService
     public function getValuesByStationDate($idStation, $hours = null)
     {
         // set the base URL for the API request
-        $url = "http://lemanride.section-inf.ch/api/public/values/$idStation";
+        $url = self::API_BASE_URL . "values/$idStation";
 
         // if hours value is given, add it to the URL
         $url .= $hours ? "?hours=$hours" : '';
@@ -93,7 +96,7 @@ class WindApiService
     public function getLatestValuesData($average = null)
     {
         // set the base URL for the API request
-        $url = "http://lemanride.section-inf.ch/api/public/values/latest";
+        $url = self::API_BASE_URL . "values/latest";
 
         // if average value is given, add it to the URL
         $url .= $average ? "?average=$average" : '';
