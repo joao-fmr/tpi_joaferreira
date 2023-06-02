@@ -38,6 +38,7 @@ class RequestsController extends Controller
 
     /**
      * Stores new data in the t_values table and clears the cache
+     * 
      * @param Request $request : Request containing the data to insert
      * @return JsonResponse : json response indicating if the insertion was successfull
      */
@@ -65,6 +66,7 @@ class RequestsController extends Controller
 
     /**
      * Gets all data from the t_station table
+     * 
      * @param Request $request : Request containing the input data from the URL
      * @return JsonResponse : JSON response containing the data from the t_station table
      */
@@ -95,6 +97,7 @@ class RequestsController extends Controller
     /**
      * Get all values from the last specified number of hours 
      * (96h by default) and average or not (false by default)
+     * 
      * @param Request $request : Request containing the input data from the URL
      * @return JsonResponse : JSON response containing the data
      */
@@ -150,6 +153,7 @@ class RequestsController extends Controller
 
     /**
      * Get all values for a specific station from the last specified number of hours
+     * 
      * @param int $idStation : ID of the station choosen put in the URL
      * @param Request $request : Request containing the input data from the URL
      * @return JsonResponse : JSON response containing the data
@@ -184,6 +188,7 @@ class RequestsController extends Controller
 
     /**
      * Get the latest values for each station or average of all stations (false by default)
+     * 
      * @param Request $request : Request containing the input data from the URL
      * @return JsonResponse : JSON response containing the data
      */
