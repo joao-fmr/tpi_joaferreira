@@ -179,7 +179,7 @@ class WindController extends Controller
      * @param int|null $lastHours : number of hours in the past to get data for If null, gets data for the last 96 hours
      * @return array : array containing the latest data and the data for the graph
      */
-    public function getHomeData($lastHours = null)
+    private function getHomeData($lastHours = null)
     {
         // get the latest values from the API using the services
         $latestData = $this->apiService->getLatestValuesData($average = true);
