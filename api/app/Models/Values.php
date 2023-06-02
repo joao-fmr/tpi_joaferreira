@@ -8,10 +8,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Values extends Model
 {
+    // allows fake data to be generated
+    use HasFactory;
+
     // table associated with the model
     protected $table = 't_values';
 
