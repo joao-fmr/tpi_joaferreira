@@ -223,7 +223,7 @@ class WindController extends Controller
     public function renderHome()
     {
         // get the data for the home page
-        $data = $this->getHomeData();
+        $data = $this->getHomeData($lastHours = self::LAST_HOURS_DEFAULT);
 
         // set the number of hours in the past to the default value
         $data['lastHours'] = self::LAST_HOURS_DEFAULT;

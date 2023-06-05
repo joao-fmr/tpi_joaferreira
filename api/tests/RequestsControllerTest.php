@@ -21,17 +21,9 @@ class RequestsControllerTest extends TestCase
             $this->assertTrue(true);
         } catch (\Exception $e) {
             // if there is an exception or error, the database connection is not working
-            $this->fail('Could not connect to the database: ' . $e->getMessage());
+            $this->fail('Could not connect to the database: ' 
+                        . $e->getMessage()
+                        );
         }
-    }
-    
-    /**
-     * Tests the API method to store the data
-     */
-    public function testStoreData()
-    {
-
-    }
-    
-    
+    }  
 }

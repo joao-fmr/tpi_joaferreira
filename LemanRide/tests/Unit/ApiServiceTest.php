@@ -81,7 +81,7 @@ class ApiServiceTest extends TestCase
     {
         // creates new api service and gets data from the method with a test ID
         $service = new WindApiService();
-        $data = $service->getValuesOfStationDate($idStation = self::ID_STATION_TEST);
+        $data = $service->getValuesOfStationData($idStation = self::ID_STATION_TEST);
 
         // check that the returned data is an array
         $this->assertIsArray($data);
@@ -97,7 +97,7 @@ class ApiServiceTest extends TestCase
     {
         // creates new api service and gets data from the method with the test ID and the hours parameter
         $service = new WindApiService();
-        $data = $service->getValuesOfStationDate($idStation = self::ID_STATION_TEST, $hours = self::HOURS_NUMBER_TEST);
+        $data = $service->getValuesOfStationData($idStation = self::ID_STATION_TEST, $hours = self::HOURS_NUMBER_TEST);
 
         // check that the returned data is an array
         $this->assertIsArray($data);

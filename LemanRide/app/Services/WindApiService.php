@@ -75,7 +75,7 @@ class WindApiService
      * @param int|null $hours : number of hours to get data for. If null, data for all hours is returned.
      * @return array : data returned from the API
     */
-    public function getValuesOfStationDate($idStation, $hours = null)
+    public function getValuesOfStationData($idStation, $hours = null)
     {
         // set the base URL for the API request
         $url = self::API_BASE_URL . "values/$idStation";
