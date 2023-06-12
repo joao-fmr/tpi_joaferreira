@@ -19,7 +19,12 @@ var averageStrengths = [];
 for (var key in graphData) {
     // format the date time
     var date = new Date(graphData[key].valStoredDate);
-    var formattedDate = date.toLocaleDateString('fr-FR', {day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric'});
+    var formattedDate = date.toLocaleDateString('fr-FR', 
+                                                {day: 'numeric', 
+                                                month: 'numeric', 
+                                                year: 'numeric', 
+                                                hour: 'numeric', 
+                                                minute: 'numeric'});
     
     // add the values to the arrays of the series data
     dates.push(formattedDate);

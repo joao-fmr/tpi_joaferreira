@@ -13,8 +13,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Station extends Model
 {
+    // allows fake data to be generated 
     use HasFactory;
-    
+
     // table associated with the model
     protected $table = 't_station';
     

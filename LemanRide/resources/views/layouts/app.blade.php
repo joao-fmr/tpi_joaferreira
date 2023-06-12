@@ -19,6 +19,8 @@
 
         <title>LemanRide</title>
 
+        <link rel="icon" href="{{asset('img/lemanride-logo.png')}}"/>
+
     </head>
 
     <body class="bg-fixed bg-center" style="background-image: url(' <?php echo asset('img/background/leman-lake-1.jpg') ?> ')">
