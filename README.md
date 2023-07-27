@@ -14,3 +14,7 @@ An API is then used to make requests to the Database to insert and retrieve the 
 
 The Docker info on how to use the image can be accessed on : 
 https://hub.docker.com/repository/docker/joaferreira/lemanride-script/general 
+
+
+
+For an exemple, the website has been published here : http://lemanride.section-inf.ch/
